@@ -1,6 +1,10 @@
 package lotto.view
 
-import lotto.domain.*
+import lotto.domain.LottoNumber
+import lotto.domain.LottoTicket
+import lotto.domain.LottoTickets
+import lotto.domain.Money
+import lotto.domain.WinningLotto
 import lotto.dto.PurchaseDetail
 
 object InputView {
@@ -15,10 +19,11 @@ object InputView {
 
     private fun getManualLottoTickets(manualLottoQuantity: Int): LottoTickets {
         println("수동으로 구매할 번호를 입력해 주세요.")
-        val manualLottoTickets = List(manualLottoQuantity) {
-            val readLine = readlnOrNull()?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("로또 번호를 입력해주세요.")
-            LottoTicket.makeLottoTicket(readLine)
-        }
+        val manualLottoTickets =
+            List(manualLottoQuantity) {
+                val readLine = readlnOrNull()?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("로또 번호를 입력해주세요.")
+                LottoTicket.makeLottoTicket(readLine)
+            }
         return LottoTickets(manualLottoTickets)
     }
 

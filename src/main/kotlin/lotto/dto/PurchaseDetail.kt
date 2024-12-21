@@ -23,10 +23,11 @@ data class PurchaseDetail(
         manualLottoTickets.size,
         manualLottoTickets,
     )
+
     companion object {
         fun of(
             money: Money,
-            manualLottoTickets: LottoTickets
+            manualLottoTickets: LottoTickets,
         ): PurchaseDetail {
             return PurchaseDetail(
                 money.amount,
