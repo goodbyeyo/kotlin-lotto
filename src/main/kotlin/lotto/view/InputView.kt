@@ -20,13 +20,12 @@ object InputView {
         val manualLottoTickets = mutableListOf<LottoTicket>()
         println("수동으로 구매할 번호를 입력해 주세요.")
         repeat(manualLottoQuantity) {
-            val line = readlnOrNull()?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("로또 번호를 입력해주세요.")
-            val numbers =
-                line.split(DELIMITER)
-                    .map { it.trim().toIntOrNull() ?: throw IllegalArgumentException("로또 번호는 숫자여야 합니다.") }
-            manualLottoTickets.add(LottoTicket.from(numbers.toSet()))
+            val readLine = readlnOrNull()?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("로또 번호를 입력해주세요.")
+            val lottoTicket = LottoTicket.makeLottoTicket(readLine)
+            manualLottoTickets.add(lottoTicket)
         }
         return LottoTickets(manualLottoTickets)
+
     }
 
     private fun getManualLottoQuantity(): Int {
