@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import lotto.domain.LottoTicket
 import lotto.domain.LottoTickets
+import lotto.domain.Money
 import org.junit.jupiter.api.Test
 
 class PurchaseDetailTest {
@@ -11,7 +12,7 @@ class PurchaseDetailTest {
     fun `수동으로 구입할 로또의 수량은 구입금액보다 많을 수 없다`() {
         shouldThrow<IllegalArgumentException> {
             PurchaseDetail(
-                purchaseAmount = 1_000,
+                money = Money("1000"),
                 manualLottoTickets =
                     LottoTickets(
                         listOf(
@@ -50,8 +51,8 @@ class PurchaseDetailTest {
     @Test
     fun `만원 구매금액으로 수동 로또 3장을 구입하면 자동 로또는 7장이다`() {
         val purchaseDetail =
-            PurchaseDetail(
-                purchaseAmount = 10_000,
+            PurchaseDetail.of(
+                money = Money("10000"),
                 manualLottoTickets =
                     LottoTickets(
                         listOf(

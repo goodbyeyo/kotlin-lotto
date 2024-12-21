@@ -1,19 +1,16 @@
 package lotto.view
 
-import lotto.domain.LottoNumber
-import lotto.domain.LottoTicket
-import lotto.domain.LottoTickets
-import lotto.domain.WinningLotto
+import lotto.domain.*
 import lotto.dto.PurchaseDetail
 
 object InputView {
     private const val DELIMITER = ","
 
     fun getPurchaseDetail(): PurchaseDetail {
-        val purchaseAmount = getPurchaseAmount()
+        val money = getPurchaseAmount()
         val manualLottoQuantity = getManualLottoQuantity()
         val manualLottoTickets = getManualLottoTickets(manualLottoQuantity)
-        return PurchaseDetail(purchaseAmount, manualLottoTickets)
+        return PurchaseDetail.of(money, manualLottoTickets)
     }
 
     private fun getManualLottoTickets(manualLottoQuantity: Int): LottoTickets {
@@ -31,10 +28,10 @@ object InputView {
         return quantity.toIntOrNull() ?: throw IllegalArgumentException("유효한 숫자를 입력해주세요")
     }
 
-    private fun getPurchaseAmount(): Int {
+    private fun getPurchaseAmount(): Money {
         println("구입 금액을 입력해 주세요.")
         val amount = readln()
-        return amount.toIntOrNull() ?: throw IllegalArgumentException("구입 금액이 유효하지 않습니다. 숫자를 입력해주세요")
+        return Money(amount)
     }
 
     fun getUserWinningLotto(): WinningLotto {
